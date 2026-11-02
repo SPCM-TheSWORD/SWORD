@@ -64,7 +64,6 @@ function openLabTab(evt, tabId) {
 }
 
 // SWORD Meet the Scribes pop up
-// SWORD SCRIBES IMAGE POPUP
 
 const swordImages = document.querySelectorAll(".sword-gallery-img");
 const swordPopup = document.getElementById("swordImagePopup");
