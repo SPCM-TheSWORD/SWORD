@@ -62,3 +62,44 @@ function openLabTab(evt, tabId) {
     document.getElementById(tabId).classList.add('active');
     evt.currentTarget.classList.add('active');
 }
+
+// SWORD Meet the Scribes pop up
+// SWORD SCRIBES IMAGE POPUP
+
+const swordImages = document.querySelectorAll(".sword-gallery-img");
+const swordPopup = document.getElementById("swordImagePopup");
+const swordPopupImage = document.getElementById("swordPopupImage");
+const swordClose = document.querySelector(".sword-popup-close");
+
+swordImages.forEach(image => {
+    image.addEventListener("click", function () {
+
+        swordPopup.style.display = "flex";
+        swordPopupImage.src = this.src;
+        swordPopupImage.alt = this.alt;
+
+    });
+});
+
+// CLOSE BUTTON
+swordClose.addEventListener("click", function () {
+    swordPopup.style.display = "none";
+});
+
+// CLOSE WHEN CLICKING OUTSIDE THE IMAGE
+swordPopup.addEventListener("click", function (event) {
+
+    if (event.target === swordPopup) {
+        swordPopup.style.display = "none";
+    }
+
+});
+
+// CLOSE USING ESCAPE KEY
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+        swordPopup.style.display = "none";
+    }
+
+});
