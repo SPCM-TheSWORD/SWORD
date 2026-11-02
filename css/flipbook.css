@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Outer Layout */
+.flipbook-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+/* Fullscreen Overlay Styling */
+.flipbook-wrapper:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #111;
+    padding: 10px !important;
+    margin: 0 !important;
+    overflow: hidden;
+}
+
+/* Floating Toolbar */
+.zoom-controls {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.buttonZoom {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    background: #2f5f36;
+    color: white;
+    transition: 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.buttonZoom:hover {
+    background: #23492a;
+    transform: scale(1.05);
+}
+
+/* Viewport & Zoom Container */
+.book-viewport {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+}
+
+.book-viewport.grabbing {
+    cursor: grabbing !important;
+}
+
+.zoom-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+/* Flipbook Core Canvas Element */
+.book {
+    box-shadow: 0 20px 45px rgba(0, 0, 0, .3);
+    border-radius: 6px;
+    background: #fff;
+    margin: 0 auto !important;
+}
+
+/* Page Rendering */
+.my-page {
+    /* Match container background or keep standard clean white background */
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.my-page img {
+    width: 100%;
+    height: 100%;
+    /* Prevents page text from ever being cropped/cut off */
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+}
+
+/* Navigation Buttons Adjacent to the Viewport */
+.buttonFlipbook {
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    background: #2f5f36;
+    color: white;
+    transition: 0.25s;
+    z-index: 1000;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.buttonFlipbook:hover {
+    background: #23492a;
+    transform: scale(1.08);
+}
+
+/* Mobile Responsive Setup */
+@media (max-width: 768px) {
+    .flipbook-wrapper,
+    .flipbook-wrapper:fullscreen {
+        display: grid !important;
+        grid-template-rows: auto 1fr auto; /* Controls row, Viewport row, Bottom Navigation row */
+        grid-template-columns: 1fr 1fr;    /* 2 equal columns for Prev / Next buttons */
+        justify-items: center;
+        align-items: center;
+        padding-top: 55px !important;      /* Leaves space for top floating zoom toolbar */
+        padding-bottom: 20px !important;
+        height: 100vh;
+        gap: 10px;
+    }
+
+    .zoom-controls {
+        top: 10px;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    .buttonZoom {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+
+    .book-viewport {
+        grid-column: 1 / -1; /* Spans full width */
+        grid-row: 2;        /* Fits nicely in the center row */
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Snap navigation buttons strictly to bottom row */
+    .buttonFlipbook {
+        grid-row: 3 !important;
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        font-size: 20px;
+        margin: 0;
+    }
+
+    #prevBtn {
+        grid-column: 1 !important; /* Bottom Left */
+        /* justify-self: center; */
+    }
+
+    #nextBtn {
+        grid-column: 2 !important; /* Bottom Right */
+        /* justify-self: center; */
+    }
+}
